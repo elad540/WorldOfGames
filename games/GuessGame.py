@@ -1,4 +1,12 @@
 from Live import load_game
+from sources.Score import add_score
+
+
+# This function generates a random number
+def generates_number(diff):
+    import random
+    generated_number = int(random.randint(1, diff))
+    return generated_number
 
 
 # This function lets the user choose a number
@@ -13,20 +21,15 @@ def get_guess_from_user(diff):
             print(f"\033[1;31;40mError - choose from 1 to {diff} only\033[0m")
 
 
+# This function compares the generated number to the number that the user have guessed
 def compare_results(generated_number, user_number):
     return bool(generated_number == user_number)
 
 
-class GuessGame:
-    def play(self):
-        self.generates_number()
-        if compare_results(get_guess_from_user(), generates_number()):
-            return True
-        else:
-            return False
-
-    # This function generates a random number
-    def generates_number(self):
-        import random
-        generated_number = int(random.randint(1, self.diff))
-        return generated_number
+def play(diff):
+    is_equal = compare_results(generates_number(diff), get_guess_from_user(diff))
+    if is_equal:
+        print("Great you guessed right!")
+        add_score(diff)
+    else:
+        print("You lost...")

@@ -1,7 +1,7 @@
-import random
 from random import randrange
 from time import sleep
 from sources.utils import screen_cleaner
+from sources.Score import add_score
 
 
 def generate_sequence(diff):
@@ -40,6 +40,9 @@ def is_list_equal(user_numbers, random_numbers):
 
 
 def play(diff):
-    print(generate_sequence(diff))
-    get_list_from_user(diff)
-    return is_list_equal()
+    list_equal = is_list_equal(generate_sequence(diff), get_list_from_user(diff))
+    if list_equal:
+        print("Great you remembered right!")
+        add_score(diff)
+    else:
+        print("You lost...")

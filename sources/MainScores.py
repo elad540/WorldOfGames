@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from utils import scores_file_name
-from score import get_current_score
+from Score import get_current_score
 
 
 app = Flask(__name__, template_folder='template')
