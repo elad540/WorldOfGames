@@ -1,19 +1,17 @@
 from flask import Flask, render_template
-from utils import scores_file_name
 from Score import get_current_score
-
+from utils import bad_return_code
 
 app = Flask(__name__, template_folder='template')
 
 
 @app.route('/')
 def content():
-    if type(scores_file_name) != int:
-        score = get_current_score
-        error = ""
+    if get_current_score == bad_return_code:
+        error = "Couldn't read the score file"
         return render_template('error.html', error=error)
     else:
-        score = f"The score is {scores_file_name}"
+        score = get_current_score()
         error = ""
     return render_template('index.html', score=score, error=error)
 
