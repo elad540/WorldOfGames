@@ -8,12 +8,12 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'docker build -t your_image_name .'
+                sh 'docker build -t WOG .'
             }
         }
         stage('Run') {
             steps {
-                sh 'docker run -p 8777:8777 -v /path/to/Scores.txt:/app/Scores.txt your_image_name'
+                sh 'docker run -p 8777:8777 -v C:/Users/elad5/PycharmProjects/29/WorldOfGames/sources/Scores.txt:/app/Scores.txt WOG'
             }
         }
         stage('Test') {
@@ -24,9 +24,11 @@ pipeline {
         }
         stage('Finalize') {
             steps {
-                sh 'docker stop your_container_name'
-                sh 'docker push your_image_name'
+                sh 'docker stop WOG'
+                sh 'docker push WOG'
             }
         }
     }
 }
+// In this Jenkinsfile, the pipeline first checks out the repository, then it builds a Docker image, runs the container with the specified port and mounted file, runs the e2e.py file to test the scores web service, and finally, if the tests pass, it stops the container and pushes the image to DockerHub.
+// It's worth noting that you need to make sure you have the correct credentials to access your repo, and also that you need to replace the placeholders with the correct values such as your repo url, image name, and container name.
